@@ -168,8 +168,6 @@ function init() {
         Persistence.setItem(button.getAttribute('Index'), button.innerHTML);
     });
 
-    setupHotkeys();
-
     // Configure the card type indicator
     let cardTypeLabel = document.getElementsByClassName('multiple-choice-card-type-label')[0];
     cardTypeLabel.style.display = singleSelection ? 'none' : '';
@@ -228,4 +226,5 @@ if (!window.shortcutHandler) {
     window.shortcutHandler.removeAll();
 }
 init();
+setupHotkeys();
 </script>
