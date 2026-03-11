@@ -26,64 +26,72 @@
 
 .multiple-choice-card-type-label {
     font-size: 16px;
-    text-align: center;
-    margin-top: 10px;
-    padding: 0px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
+    margin-left: 40px;
+    margin-bottom: 10px;
 }
 
 .multiple-choice-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 15px;
-    column-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 10px;
+    counter-reset: choice-counter;
 }
 
 .multiple-choice-button {
-    text-align: center;
-    background-color: gray;
-    padding: 2px;
-    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    transition: background-color 0.1s, border-color 0.1s, transform 0.1s;
+    counter-increment: choice-counter;
+    cursor: pointer;
+}
+
+.multiple-choice-card-type-label,
+.multiple-choice-button {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
-    cursor: pointer;
-    transition: transform 0.2s;
 }
 
-.multiple-choice-normal {
-    background-color: gray;
+/* Letter indicator (A., B., C., ...) */
+.multiple-choice-button::before {
+    content: counter(choice-counter, upper-alpha) ".";
+    font-weight: bold;
+    margin-right: 10px;
+    color: #555;
 }
 
-/* Style applied to the button containing the correct answer the user selected before submission in multi-selections */
-.multiple-choice-selected {
-    background-color: skyblue;
+.multiple-choice-button:hover {
+    transform: scale(1.01);
 }
 
-/* Style applied to the clicked button if it contains the wrong answer */
-.multiple-choice-wrong {
-    background-color: red;
-}
-
-/* Style applied to the button containing the correct answer, or the answer that the user chose correctly in multi-selections */
-.multiple-choice-correct {
-    background-color: green;
-}
-
-/* Style applied to the button containing the correct answer the user missed in multi-selections */
-.multiple-choice-missed {
-    background-color: orange;
-}
-
-/* Additional CSS for animating buttons */
-/* You can remove this */
-.multiple-choice-button:not(.mobile .multiple-choice-button):hover {
-    transform: scale(1.02);
-}
-
-.multiple-choice-button:not(.mobile .multiple-choice-button):active {
+.multiple-choice-button:active {
     transform: scale(0.99);
+}
+
+/* Selected before submission */
+.multiple-choice-selected {
+    border-color: skyblue;
+    background-color: rgba(135, 206, 235, 0.1);
+}
+
+/* Wrong answer chosen */
+.multiple-choice-wrong {
+    border-color: red;
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+/* Correct answer (or correctly chosen answer in multi-selection) */
+.multiple-choice-correct {
+    border-color: green;
+    background-color: rgba(0, 128, 0, 0.1);
+}
+
+/* Correct answer missed (only in multi‑selection) */
+.multiple-choice-missed {
+    border-color: orange;
+    background-color: rgba(255, 165, 0, 0.1);
 }
