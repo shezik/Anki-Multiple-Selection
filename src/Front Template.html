@@ -31,6 +31,7 @@
 <div class="multiple-choice-container"></div>
 <textarea id="multiple-choice-choices" style="display: none;">{{ Choices }}</textarea>
 <textarea id="multiple-choice-answer" style="display: none;">{{ Answer }}</textarea>
+<textarea id="multiple-choice-do-shuffle" style="display: none;">{{ Shuffle? }}</textarea>
 <p id="multiple-choice-debug"> </p>
 
 <script>
@@ -156,35 +157,54 @@ function init() {
     }
     buttons = [...document.getElementsByClassName('multiple-choice-button')];
 
-    // Separate correct choices from wrong ones
-    let incorrectChoices = purgeElements(choices, correctChoicesIndices);
-    let correctChoices = [];
-    correctChoicesIndices.forEach(function (element) {
-        correctChoices.push(choices[element]);
-    });
+    let doShuffle = document.getElementById('multiple-choice-do-shuffle').value.trim().toLowerCase() !== 'n';
+    if (doShuffle) {
+        // Separate correct choices from incorrect ones
+        let incorrectChoices = purgeElements(choices, correctChoicesIndices);
+        let correctChoices = [];
+        correctChoicesIndices.forEach(function (element) {
+            correctChoices.push(choices[element]);
+        });
 
-    // Populate correct buttons with correct choices
-    // Indices of buttons that show correct choices, randomized
-    let correctButtonsIndices = generateUniqueRandomNumbers(0, choices.length - 1, correctChoicesIndices.length);
-    Persistence.setItem('correctButtonsIndices', correctButtonsIndices);
+        // Populate correct buttons with correct choices
+        // Indices of buttons that show correct choices, randomized
+        let correctButtonsIndices = generateUniqueRandomNumbers(0, choices.length - 1, correctChoicesIndices.length);
+        Persistence.setItem('correctButtonsIndices', correctButtonsIndices);
 
-    buttons.forEach(function (button, index) {
-        if (isMobile) {
-            button.addEventListener('touchend', btnEventListener);
-        }
-        else if (isDesktop) {
-            button.addEventListener('click', btnEventListener);
-        }
+        buttons.forEach(function (button, index) {
+            if (isMobile) {
+                button.addEventListener('touchend', btnEventListener);
+            }
+            else if (isDesktop) {
+                button.addEventListener('click', btnEventListener);
+            }
 
-        if (correctButtonsIndices.includes(index)) {  // Correct buttons
-            button.innerHTML = takeElement(correctChoices, randomInt(0, correctChoices.length - 1));
-        } else {  // Incorrect buttons
-            button.innerHTML = takeElement(incorrectChoices, randomInt(0, incorrectChoices.length - 1));
-        }
+            if (correctButtonsIndices.includes(index)) {  // Correct buttons
+                button.innerHTML = takeElement(correctChoices, randomInt(0, correctChoices.length - 1));
+            } else {  // Incorrect buttons
+                button.innerHTML = takeElement(incorrectChoices, randomInt(0, incorrectChoices.length - 1));
+            }
 
-        button.setAttribute('Index', index);
-        Persistence.setItem(button.getAttribute('Index'), button.innerHTML);
-    });
+            button.setAttribute('Index', index);
+            Persistence.setItem(button.getAttribute('Index'), button.innerHTML);
+        });
+    } else {
+        Persistence.setItem('correctButtonsIndices', correctChoicesIndices);
+        
+        buttons.forEach(function (button, index) {
+            if (isMobile) {
+                button.addEventListener('touchend', btnEventListener);
+            }
+            else if (isDesktop) {
+                button.addEventListener('click', btnEventListener);
+            }
+
+            button.innerHTML = choices[index];
+
+            button.setAttribute('Index', index);
+            Persistence.setItem(button.getAttribute('Index'), button.innerHTML);
+        });
+    }
 
     // Configure card type indicator
     let cardTypeLabel = document.getElementsByClassName('multiple-choice-card-type-label')[0];
