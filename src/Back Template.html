@@ -28,9 +28,9 @@
 <div class="multiple-choice-container"></div>
 <p id="multiple-choice-debug"></p>
 
-<hr id=answer>
+<hr id="multiple-choice-hr-back">
 
-{{Back}}
+<div id="multiple-choice-back-content">{{Back}}</div>
 
 <script>
 // ANKI PERSISTENCE
@@ -91,6 +91,8 @@ function init() {
         else if (!isCorrect && !isSelected)
             styleButton(button, 'multiple-choice-normal');
     });
+
+    showHideBackHr();
 }
 
 function styleButton(button, style) { button.classList.add(style); }
@@ -109,6 +111,14 @@ function getSelectedButtonsIndices() {
     if (chosen === null)
         chosen = [];
     return chosen;
+}
+
+function showHideBackHr() {
+    let backDiv = document.getElementById('multiple-choice-back-content');
+    if (backDiv && backDiv.innerText.trim() === '') {
+        let hr = document.getElementById('multiple-choice-hr-back');
+        if (hr) hr.style.display = 'none';
+    }
 }
 
 debugger;
