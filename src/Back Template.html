@@ -55,7 +55,7 @@ function init() {
         log('Persistence not available: multiple choices will not work.');
         return;
     }
-    
+
     for (let i = 0; i < Persistence.getItem('buttonCount'); i++) {
         addMultipleChoiceButton();
     }
@@ -82,7 +82,7 @@ function init() {
     buttons.forEach(function (button, index) {
         let isCorrect = correctButtonsIndices.includes(index);
         let isSelected = selectedButtonsIndices.includes(index);
-        
+
         if (isCorrect && isSelected)
             styleButton(button, 'multiple-choice-correct');
         else if (isCorrect && !isSelected)

@@ -114,7 +114,7 @@ function parseAnswers(input) {
     formattedInput = input.toString();
     if (!formattedInput.includes('<br>'))
         formattedInput = formattedInput.replace(/(.(?=.))/g, '$1<br>');
-    
+
     const parts = formattedInput.split('<br>');
     const result = [];
 
@@ -136,7 +136,7 @@ function init() {
     let choices = parseChoices();
     let correctChoicesIndices = parseAnswers(document.getElementById('multiple-choice-answer').value);
     singleSelection = (correctChoicesIndices.length === 1);
-    
+
     // Check for possible errors
     if (!Persistence.isAvailable()) {
         log('Persistence not available: multiple choices will not work.');
@@ -146,24 +146,24 @@ function init() {
         log('Correct answers are more than available choices.');
         return;
     }
-    
+
     // Add buttons to HTML
     Persistence.setItem('buttonCount', choices.length);
     for (let i = 0; i < choices.length; i++) {
         addMultipleChoiceButton();
     }
     buttons = [...document.getElementsByClassName('multiple-choice-button')];
-    
+
     // Separate correct choices from wrong ones
     let incorrectChoices = purgeElements(choices, correctChoicesIndices);
     let correctChoices = [];
     correctChoicesIndices.forEach(function (element) {
         correctChoices.push(choices[element]);
     });
-    
+
     // Populate correct buttons with correct choices
     // Indices of buttons that show correct choices, randomized
-    let correctButtonsIndices = generateUniqueRandomNumbers(0, choices.length - 1, correctChoicesIndices.length);    
+    let correctButtonsIndices = generateUniqueRandomNumbers(0, choices.length - 1, correctChoicesIndices.length);
     Persistence.setItem('correctButtonsIndices', correctButtonsIndices);
 
     buttons.forEach(function (button, index) {
@@ -173,7 +173,7 @@ function init() {
         else if (isDesktop) {
             button.addEventListener('click', btnEventListener);
         }
-        
+
         if (correctButtonsIndices.includes(index)) {  // Correct buttons
             button.innerHTML = takeElement(correctChoices, randomInt(0, correctChoices.length - 1));
         } else {  // Incorrect buttons
