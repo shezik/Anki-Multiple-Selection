@@ -25,6 +25,7 @@
     qaElement.innerHTML = qaElement.innerHTML.replace(/@##(.*?)\$\$@/g, '<img src="$1">');
 </script>
 
+<div class="multiple-choice-card-type-label">Multiple Selection</div>
 <div class="multiple-choice-container"></div>
 <p id="multiple-choice-debug"></p>
 
@@ -93,6 +94,10 @@ function init() {
     });
 
     showHideBackHr();
+
+    // Configure card type indicator
+    let cardTypeLabel = document.getElementsByClassName('multiple-choice-card-type-label')[0];
+    cardTypeLabel.style.display = singleSelection ? 'none' : '';
 }
 
 function styleButton(button, style) { button.classList.add(style); }

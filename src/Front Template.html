@@ -25,8 +25,8 @@
     qaElement.innerHTML = qaElement.innerHTML.replace(/@##(.*?)\$\$@/g, '<img src="$1">');
 </script>
 
-<div class="multiple-choice-container"></div>
 <div class="multiple-choice-card-type-label">Multiple Selection</div>
+<div class="multiple-choice-container"></div>
 <textarea id="multiple-choice-choices" style="display: none;">{{ Choices }}</textarea>
 <textarea id="multiple-choice-answer" style="display: none;">{{ Answer }}</textarea>
 <p id="multiple-choice-debug"> </p>
@@ -184,7 +184,7 @@ function init() {
         Persistence.setItem(button.getAttribute('Index'), button.innerHTML);
     });
 
-    // Configure the card type indicator
+    // Configure card type indicator
     let cardTypeLabel = document.getElementsByClassName('multiple-choice-card-type-label')[0];
     cardTypeLabel.style.display = singleSelection ? 'none' : '';
 }
