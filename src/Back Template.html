@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-{{Front}}
+{{ Front }}
 
 <hr id="multiple-choice-hr-choices">
 
@@ -31,7 +31,7 @@
 
 <hr id="multiple-choice-hr-back">
 
-<div id="multiple-choice-back-content">{{Back}}</div>
+<div id="multiple-choice-back-content">{{ Back }}</div>
 
 <script>
 // ANKI PERSISTENCE
@@ -52,7 +52,7 @@ function addMultipleChoiceButton() {
 function init() {
     // Check for possible errors
     if (!Persistence.isAvailable()) {
-        log('Persistence not available: multiple choices will not work.');
+        log('Persistence not available: Anki-Multiple-Selection will not work.');
         return;
     }
 
