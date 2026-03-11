@@ -1,0 +1,89 @@
+/*
+    Anki-Multiple-Selection, a fork of https://github.com/ale18V/Anki-Multiple-Choice/
+    Copyright (C) 2026  shezik
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+.card {
+    font-family: arial;
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    background-color: white;
+}
+
+.multiple-choice-card-type-label {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.multiple-choice-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 15px;
+    column-gap: 10px;
+    margin-top: 10px;
+}
+
+.multiple-choice-button {
+    text-align: center;
+    background-color: gray;
+    padding: 2px;
+    border-radius: 15px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.multiple-choice-normal {
+    background-color: gray;
+}
+
+/* Style applied to the button containing the correct answer the user selected before submission in multi-selections */
+.multiple-choice-selected {
+    background-color: skyblue;
+}
+
+/* Style applied to the clicked button if it contains the wrong answer */
+.multiple-choice-wrong {
+    background-color: red;
+}
+
+/* Style applied to the button containing the correct answer, or the answer that the user chose correctly in multi-selections */
+.multiple-choice-correct {
+    background-color: green;
+}
+
+/* Style applied to the button containing the correct answer the user missed in multi-selections */
+.multiple-choice-missed {
+    background-color: orange;
+}
+
+/* Additional CSS for animating buttons */
+/* You can remove this */
+.multiple-choice-button:not(.mobile .multiple-choice-button):hover {
+    transform: scale(1.02);
+}
+
+.multiple-choice-button:not(.mobile .multiple-choice-button):active {
+    transform: scale(0.99);
+}
